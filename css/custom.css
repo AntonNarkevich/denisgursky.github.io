@@ -310,3 +310,65 @@ section {
 	height: 800px;
 	background: #FFF;
 }
+
+div.heading-illustration-wrapper {
+	background: #FFF;
+	float: right;
+	text-align: center;
+	vertical-align: middle;
+	margin-right: 5%;
+}
+
+.heading-illustration-wrapper img {
+	vertical-align: middle;
+}
+
+img.full-width-image {
+	width: 100%;
+}
+
+ol.full-width-ol {
+	display: block;;
+}
+
+.left-part {
+	width: 40%;
+	float: left;
+}
+
+.right-part {
+	width: 60%;
+	float: right;
+}
+
+.right-part pre {
+	width: auto;
+}
+
+.accent {
+	color: #6B3E3E;
+}
+
+.ajax-logo {
+	width: 360px;
+}
+
+.best-practice {
+	color: #398F39;
+	float: right;
+	font-size: 50px;
+}
+
+.left-image-wrapper {
+	float: left;
+	width: 70%;
+	max-height: 580px;
+}
+
+.right-image-wrapper {
+	float: right;
+	width: 30%;
+	max-height: 580px;
+}
+
+

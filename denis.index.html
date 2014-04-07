@@ -1,0 +1,1080 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>ResponsiveJS</title>
+
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="css/reveal.min.css">
+	<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+	<!-- For syntax highlighting -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="css/custom.css">
+
+	<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+	<script>
+		document.write('<link rel="stylesheet" href="css/print/' + ( window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">');
+	</script>
+
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+<div class="logo"></div>
+<div class="reveal">
+
+	<!-- Any section element inside of this container is displayed as a slide -->
+	<div class="slides">
+		<section>
+			<h1>ResponsiveJS</h1>
+			<aside class="notes">
+				Hello, I'm going to talk about ReponsiveJS framework
+			</aside>
+		</section>
+		<section>
+			<h1>ResponsiveJS</h1>
+			<p>ResponsiveJS is our highspeed, easy-to-implement JavaScript framework that transforms your desktop website into a Responsive Design website, optimized across screen sizes for mobile and tablet.</p>
+			<p><img class="responsivejs-image" src="img/responsivejs.png"/></p>
+			<aside class="notes">
+				The idea is simple, we're writing CSS and JS code to make a site looks well on devices
+			</aside>
+		</section>
+		<section>
+			<section>
+				<h2>How to include the library?</h2>
+
+				<p class="">Insert the library <code class="highlight-code">5thfinger.responsive.js</code></p>
+				<p class="">Insert an inline script, that begins responsifying</p>
+				<aside class="notes">
+					To make it work you need to include two things the library script and an inline script, that begins the responsifying process
+				</aside>
+			</section>
+			<section>
+				<h2>Simple including</h2>
+				<p>Insert the following markup inside the <code class="highlight-code">&lt;head&gt;</code> section</p>
+				<p>To minimize the impact on your site,</p>
+				<p>place the tag as <b>close as possible</b> the <code class="highlight-code">&lt;/head&gt;</code> tag.</p>
+				<pre><code>
+	&lt;script src="//your-hostname//5thfinger.responsive.js"
+			type="text/javascript">&lt;/script&gt;
+
+	&lt;script type="text/javascript"&gt;
+		responsify.start({
+			remoteDebug: false,
+			mobileOnly: true,
+			clientMapSrc: "//your-hostname/clientMap.js"
+		});
+	&lt;/script&gt;
+				</code></pre>
+				<aside class="notes">
+					Here's an example. Read the slide.
+				</aside>
+			</section>
+			<section>
+				<h2>Full Example</h2>
+				<pre><code>
+&lt;html&gt;
+	&lt;head&gt;
+		<!--here your scripts, styles, whatever-->
+		&lt;script src="//your-hostname//5thfinger.responsive.js"
+				type="text/javascript">&lt;/script&gt;
+
+		&lt;script type="text/javascript"&gt;
+			responsify.start({
+				remoteDebug: false,
+				mobileOnly: true,
+				clientMapSrc: "//your-hostname/clientMap.js"
+			});
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;Here is your page&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+				<aside class="notes">
+					It's is the same example, just to show you how it looks in the page markup
+				</aside>
+			</section>
+		</section>
+		<section>
+			<section>
+				<h1>clientMap.js</h1>
+				<p>Configuration object to setup project settings before executing client scripts</p>
+				<aside class="notes">
+					It's an object that allows setup setting in a declarative way
+				</aside>
+			</section>
+			<section>
+				<h1>Example</h1>
+				<pre><code>
+	responsify.clientMap = {
+		viewport: "",
+		bounds: {
+			phone: { maxWidth: 669 },
+			tablet: { minWidth: 670, maxWidth: 1280 },
+			desktop: { minWidth: 1281 }
+		},
+		controls: ["footerLinks"],
+		sources: {
+			timeout: 10000,
+			js: [{ src: "./js/master.js", callback: "runMaster"}],
+			css: [{ href:"./css/master.css" }]
+		}
+	};
+				</code></pre>
+				<aside class="notes">
+					This is how the client map usually looks. Let's consider we can do here and all available properties in detail
+				</aside>
+			</section>
+			<section>
+				<h1>Viewport</h1>
+				<p>
+					Allows you to set your value for the viewport meta tag.
+				</p>
+				<p>
+					Default value:
+				</p>
+				<p>
+					<code class="highlight-code">width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, user-scalable=no</code>
+				</p>
+				<aside class="notes">
+					Using the viewport meta tag allows to control layout on mobile browsers.
+					You can define what viewport the library adds to the page. Here's default viewport on the slide
+				</aside>
+			</section>
+			<section>
+				<h1>Bounds</h1>
+				<p>
+					Declares ranges in pixels for the screen width
+				</p>
+				<pre><code>
+	bounds: {
+		phone: { maxWidth: 669 },
+		tablet: { minWidth: 670, maxWidth: 1280 },
+		desktop: { minWidth: 1281 }
+	}
+				</code></pre>
+				<aside class="notes">
+					Read the slide. You can define so many bounds, how much you need
+				</aside>
+			</section>
+			<section>
+				<h1>Bounds</h1>
+				<p>
+					Ability to separate the behavior for different bounds
+				</p>
+				<p>
+					The library creates some media queries to manage visibility of elements
+				</p>
+				<pre><code>
+	//element1 is visible only for phones
+	RD.boundManager.applyFor($(".element1-selector"), [bounds.phone]);
+
+	//element2 is visible for all bounds except phone
+	RD.boundManager.applyForOther($(".element2-selector"), [bounds.phone]);
+				</code></pre>
+				<aside class="notes">
+					Bounds abstraction is a good way to separate different behaviors for different screens widths.
+					And provide the best UI/UX for any devices.
+					The library internally creates some media queries to support this feature, and appends them as a style tag to the page.
+					Read the example.
+					The library provides API that allows you detect the current bound for example. And it fires an event when bound is changed.
+				</aside>
+			</section>
+			<section>
+				<h1>Controls</h1>
+				<p>List of <a href="#/controls">controls</a> the library loads</p>
+				<pre><code>
+	controls: [
+		"footerLinks",
+		"fullSiteLink",
+		"menuBlock"
+	]
+				</code></pre>
+				<aside class="notes">
+					The library provides a set of controls. You can use them to build UI/UX very quickly.
+					Here you define which of the them you'd like to use, and controls will be loaded asynchronously.
+					We'll consider the full list later on.
+				</aside>
+			</section>
+			<section>
+				<h1>Sources</h1>
+				<p>The heart of the clientmap</p>
+				<p>Defines where the code must be applied</p>
+				<pre><code>
+	sources:{
+		timeout:10000,
+		js:[
+			{ src:"master.js", callback:"runMaster" },
+			{ src:"productList.js", contentCondition:[".products"],
+					callback:"runProductList" },
+			{ src:"product.js", urlCondition:["product"],
+					contentCondition:[".product"], callback:"runProduct" },
+			{ src:"iphone-ipad-only.js", uaCondition:["iphone", "ipad"],
+					callback:"runIphoneIpadOnly" }
+		],
+		css:[
+			{ href:"../css/master.css" },
+			{ href:"../css/productList.css", contentCondition:[".products"] },
+			{ href:"../css/product.css", urlCondition:["product"],
+					contentCondition:[".product"] }
+		]
+	}
+				</code></pre>
+				<aside class="notes">
+					Read the slide.
+					It's a huge object, that has a lot of options. Let's look at them.
+				</aside>
+			</section>
+			<section>
+				<h1>Sources:Options</h1>
+				<h2>Timeout</h2>
+				<p>number of milliseconds for downloading the sources</p>
+				<p>the timeout is exceeded, the library <a href="#/revert-changes">reverts changes</a></p>
+				<aside class="notes">
+					This first option is timeout. Read the slides.
+					I'll tell you what reverting changes really means in deep a bit later,
+					but for now it's enough to know that it rollbacks some changes the library already did
+				</aside>
+			</section>
+			<section>
+				<h1>Sources:Options</h1>
+				<h2>JS</h2>
+				<ul>
+					<li><b class="highlight-word">src:</b> location of the script</li>
+					<li><b class="highlight-word">callback:</b> a function is called after <a href="#/onReady">onReady</a> event is fired</li>
+					<li><b class="highlight-word">urlCondition:</b> RegEx to check a page url</li>
+					<li><b class="highlight-word">contentCondition:</b> CSS selectors to check DOM</li>
+					<li><b class="highlight-word">uaCondition:</b> RegEx to check User Agent</li>
+					<li><b class="highlight-word">customCondition:</b> a function with custom logic, returns boolean</li>
+				</ul>
+				<aside class="notes">
+					The JS property declares what scripts will be used to make the site looks well.
+					It's an array, let's look at what attributes a single item may have.
+					Read the slide.
+				</aside>
+			</section>
+			<section>
+				<h1>Sources:Options</h1>
+				<h2>CSS</h2>
+				<ul>
+					<li><b class="highlight-word">href:</b> location of the scripts or styles</li>
+					<li><b class="highlight-word">id:</b> an unique identificator of the css file. <a href="#/css-id">Details</a> </li>
+					<li><b class="highlight-word">urlCondition:</b> RegEx to check a page url</li>
+					<li><b class="highlight-word">contentCondition:</b> CSS selectors to check DOM</li>
+					<li><b class="highlight-word">uaCondition:</b> RegEx to check User Agent</li>
+					<li><b class="highlight-word">customCondition:</b> a function with custom logic, returns boolean</li>
+				</ul>
+				<aside class="notes">
+					The CSS property declares what styles will be applied to the site.
+					It's an array too, some attributes are the same, but some are different.
+					Read the slide.
+				</aside>
+			</section>
+			<section>
+				<h1>Conditions</h1>
+				<p>All types of conditions are arrays, except <b class="highlight-word">customCondition</b></p>
+				<p>Condition is true, if any sub-condition in the array is true</p>
+				<p>Source is applied, if all conditions are true</p>
+				<aside class="notes">
+					Conditions say to the library can a source be applied to the page or not.
+					All types of conditions are arrays, except customCondition.
+					Let's call an item in a condition array - sub-condition.
+					Read the slide.
+				</aside>
+			</section>
+			<section>
+				<h1>Conditions</h1>
+				<p>
+					The following source is applied, when:
+					<ul>
+						<li>it is opened on iPhone or iPad</li>
+						<li>and the url contains 'product'</li>
+						<li>and it's Retina</li>
+						<li>and it has an element with class 'someElement'</li>
+					</ul>
+				</p>
+					<pre><code>
+	var isRetina = function(){
+		return window.devicePixelRatio === 2;
+	};
+	//...
+	sources:{
+		js:[
+			{ src:"test.js", uaCondition:["iphone", "ipad"],
+				urlCondition:["product"], customCondition: isRetina,
+				contentCondition:[".someElement"], callback:"runTest" }
+		]
+	}
+					</code></pre>
+				<aside class="notes">
+					Here's an example.
+					Read the slide.
+				</aside>
+			</section>
+			<section id="css-id">
+				<h1>CSS Id</h1>
+				<p>The library executes JS callbacks after the CSS file is loaded</p>
+				<p>
+					<code class="highlight-code">clientMap.js</code>
+					<pre><code>
+	sources:{
+		css:[
+			{ href: "master.css", id: "master-css" }
+		]
+	}
+					</code></pre>
+				</p>
+				<p>
+					<code class="highlight-code">master.css</code>
+					<pre><code>
+	link#master-css {
+	 	visibility: hidden;
+	}
+					</code></pre>
+				</p>
+				<aside class="notes">
+					Sometimes you need to execute some code after styles are loaded and applied.
+					Usually, it happens when you need to get a size of an element and then use it some how.
+					The styles can affect on this size, you want to be sure that they are already applied.
+					Bad news. Browsers don't provide onload event for the link tag as they do for the script tag.
+					So there's no way on the box to know exactly when a CSS file is loaded.
+					Good news. There's a workaround in the library that works across all browsers.
+					Just two steps:
+						1) add an unique id attribute
+						2) add this css rule in the CSS file
+					All javascript callback will be executed after the CSS file is loaded.
+				</aside>
+			</section>
+		</section>
+		<section>
+			<h1>Lifecycle</h1>
+			<p>can be divided into 3 phases</p>
+			<p>
+				<img src="img/lifecycle/full.png"/>
+			</p>
+			<aside class="notes">
+				Read the slide.
+				First happens when the browser loaded the library.
+				Second when responsify.start method is called
+				Third when callbacks are executed
+			</aside>
+		</section>
+		<section>
+			<section>
+				<h1>Library loaded</h1>
+				<p>
+					<img src="img/lifecycle/library.png"/>
+				</p>
+				<aside class="notes">
+					Just 3 things happens here.
+					It initializes some default values, then initializes helpers that used internally,
+					and adds the viewport.
+				</aside>
+			</section>
+			<section>
+				<h1>Defaults</h1>
+				<p>
+					<pre><code>
+	var defaults = {
+		waitForJQueryTimeout: 30000,
+		viewport: "width=device-width, minimum-scale=1.0, maximum-scale=1.0,"
+				+ " initial-scale=1.0, user-scalable=no",
+		log: true,
+		jQueryLink: "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js",
+		jQueryMinSupportedVersion: "1.8",
+		formatDetection: false
+	};
+					</code></pre>
+				</p>
+				<aside class="notes">
+					It's an object that used internally, it contains default values.
+				</aside>
+			</section>
+		</section>
+		<section>
+			<section>
+				<h1>Responsify start</h1>
+				<p>
+					the following flow happens when <code class="highlight-code">responsify.start({...})</code> method is called
+				</p>
+				<p>
+					<img src="img/lifecycle/start.png"/>
+				</p>
+				<aside class="notes">
+					A lot of things happens in background when the method is called.
+					In short, you pass some settings and it starts the responsifying process. But we're going to talk about in details.
+				</aside>
+			</section>
+			<section>
+				<h1>Example</h1>
+				<p>
+					<pre><code>
+	responsify.start({
+		clientMapSrc: "//your-hostname/clientMap.js"
+		remoteDebug: false,
+		mobileOnly: true,
+		jQueryObject: "jQuery",
+		formatDetection: false,
+		log: true
+	});
+					</code></pre>
+				</p>
+				<aside class="notes">
+					As you probably remember such code is placed in the inline script below the library script.
+					Now I'll show what properties we have and may change here.
+				</aside>
+			</section>
+			<section>
+				<h1>clientMapSrc</h1>
+				<p>Required</p>
+				<p>Location of the clientmap file</p>
+				<aside class="notes">
+					It's the only one required property. Declares where the clientmap file is.
+				</aside>
+			</section>
+			<section>
+				<h1>remoteDebug</h1>
+				<p>Optional. Default: <code class="highlight-code">false</code></p>
+				<p>Based on <a href="http://jsconsole.com" target="_blank">jsconsole</a></p>
+				<p>Useful for simple debugging, logging on a mobile device</p>
+				<aside class="notes">
+					Read the slide.
+					Internally, it adds a script to the page. The script is a bridge between your page and jsconsole.
+					But it's much better to use native tools to debug.
+				</aside>
+			</section>
+			<section>
+				<h1>mobileOnly</h1>
+				<p>Optional. Default: <code class="highlight-code">false</code></p>
+				<p>Applies the responsive code only for touch devices</p>
+				<aside class="notes">
+					There's a simple condition that check touch. It checks ontouchstart property in the window object.
+					So if you'll open the page on a laptop with touch screen you may see the responsive version of the page.
+				</aside>
+			</section>
+			<section>
+				<h1>jQueryObject</h1>
+				<p>Optional. Default: <code class="highlight-code">"jQuery"</code></p>
+				<p>Declares what object is used as jQuery</p>
+				<p>More <a href="#/resolve-jquery">details</a> about jQuery</p>
+				<aside class="notes">
+					If you have jQuery that has a different name. By default, it jQuery in lower camelcase.
+					You may provide the different name, it must be a string. The library tries to take it from the window object by the given name.
+					If jQuery is loaded asynchronously for example via RequireJS or any other module loader,
+					in this case library checks jQuery availability 30 seconds and then fails.
+				</aside>
+			</section>
+			<section>
+				<h1>jQueryLink</h1>
+				<p>Optional. Default: <code class="highlight-code">"//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"</code></p>
+				<p>Location of jQuery, that would be used</p>
+				<p>More <a href="#/resolve-jquery">details</a> about jQuery</p>
+				<aside class="notes">
+					You may provide a link to load jQuery, be default it refers to the Google CDN.
+				</aside>
+			</section>
+			<section>
+				<h1>formatDetection</h1>
+				<p>Optional. Default: <code class="highlight-code">false</code></p>
+				<p>Adds meta tag <a href="http://www.html-5.com/metatags/format-detection-meta-tag.html" target="_blank">format-detection</a></p>
+				<p>
+					<code class="highlight-code">
+						&lt;meta name="format-detection" content="telephone=no"/&gt;
+					</code>
+				</p>
+				<aside class="notes">
+					By default, phone numbers look like hypertext links, you can tap to call a number.
+					This options allows you set off this, and phone numbers will look like on desktop.
+				</aside>
+			</section>
+			<section>
+				<h1>log</h1>
+				<p>Optional. Default: <code class="highlight-code">true</code></p>
+				<p>Writes logs into the browser console</p>
+				<aside class="notes">
+					Read the slide.
+				</aside>
+			</section>
+		</section>
+		<section data-transition="linear" data-transition-speed="slow">
+			<section>
+				<h1>Preparing</h1>
+				<div class="start-preparing"></div>
+				<aside class="notes">
+					It starts from simple checking, the next slide tells what is this checking.
+					If the checking is not passed, the library triggers 'cancelStart' event.
+					If it's ok we  move ahead, again init some helpers,
+					then hide the content,
+					then check the format detection options, and if it's true we add the meta tag.
+					Now I'll show you what these blue items on the diagrams mean do.
+				</aside>
+			</section>
+			<section>
+				<h1>Checking</h1>
+				<p>
+					<ul>
+						<li>is it started already?</li>
+						<li>does the browser support <code class="highlight-code">addEventListener</code></li>
+						<li>is <code class="highlight-code">mobileOnly</code> enabled?</li>
+						<li>is <code class="highlight-code">fullSite</code> enabled?</li>
+					</ul>
+				</p>
+				<aside class="notes">
+					Read the slide.
+					If all of these true, the checking is passed.
+				</aside>
+			</section>
+			<section>
+				<h1>Hide Content</h1>
+				<p>The library adds the code below to the <code class="highlight-code">&lt;head&gt;</code></p>
+				<p>
+					<pre><code>
+	&lt;style id="RDhideAll" type="text/css"&gt;
+		html, body {
+			background:none;
+		}
+
+		body>* {
+			opacity:0;
+			filter:alpha(opacity=0);
+			position:absolute;
+			left:-3000px;
+		}
+	&lt;style&gt;
+					</code></pre>
+				</p>
+				<aside class="notes">
+					The library adds this styles to the head tag.
+					They remove background on body and html elements and move all body's child elements far away to the left
+				</aside>
+			</section>
+		</section>
+		<section data-transition="linear" data-transition-speed="slow">
+			<section>
+				<h1>Loading</h1>
+				<div class="start-loading"></div>
+				<aside class="notes">
+					It's most difficult and long part of the process.
+					Resolving jQuery and downloading the clientmap go in parallel.
+					Once jQuery is resolved, it waits other things.
+					When the clientmap is loaded, it loads JS & CSS sources and controls in parallel.
+					Of course, controls loading happens only if you use them, and you declared it in the clientmap object.
+					Let's take a look at resolving jQuery and other things happens there.
+				</aside>
+			</section>
+			<section id="resolve-jquery">
+				<h1>Resolve jQuery</h1>
+				<p><img src="img/lifecycle/resolve-jquery.png"/></p>
+				<aside class="notes">
+					It tries to use jQueryObject property, then jQueryLink, then take window.jQuery, then load from CDN.
+					All of these steps check the jQuery version, the minimum supported version is 1.8
+					When any of these steps got jQuery with version greater or equal 1.8, jQuery is resolved and we go ahead.
+					If after all of them the library didn't get jQuery, it reverts changes.
+				</aside>
+			</section>
+			<section>
+				<h1>Sources</h1>
+				<p><img src="img/lifecycle/sources.png"/></p>
+				<aside class="notes">
+					It checks that clientMapSrc is provided.
+					Then creates media queries for chosen bounds,
+					then filter sources by given conditions, load CSS and JS in parallel.
+					Loading CSS means that the library adds a link tag, so the styles are applied asynchronously
+					and it doesn't what when all files are loaded.
+				</aside>
+			</section>
+			<section id="revert-changes">
+				<h1>Revert Changes</h1>
+				<h2>What happens?</h2>
+				<p>
+					The Library removes
+				<ul>
+					<li>Viewport</li>
+					<li>Format Detection</li>
+					<li>Sources</li>
+				</ul>
+				</p>
+				<p>
+					and shows content
+				</p>
+				<aside class="notes">
+					Read the slide.
+				</aside>
+			</section>
+			<section>
+				<h1>Revert Changes</h1>
+				<h2>When happens?</h2>
+				<p>when any from the list below fails
+				<ul>
+					<li>initializing remote debugging</li>
+					<li>downloading the clientmap</li>
+					<li>downloading JS source</li>
+					<li>downloading CSS source</li>
+					<li>resolving jQuery</li>
+					<li>checking CSS and JS in onReady</li>
+				</ul>
+				</p>
+				<aside class="notes">
+					There many cases when it may happens.
+					Read the slide.
+					The last item related to the production version and I'm going to talk about it next.
+				</aside>
+			</section>
+			<section>
+				<h1>Production version</h1>
+				<p>
+					JS and CSS code are concatenated and minified in a single file
+				</p>
+				<p>
+					It's usually called <code class="highlight-code">clientMap.js</code>
+				</p>
+				<p>
+					Sources are not loaded separately
+				</p>
+				<aside class="notes">
+					Users don't like to wait while the site loads. And our goal here is decreasing the loading time.
+					The popular solution is decreasing amount of additional resources like scripts, css files, images, whatever which is loaded separately.
+					And of course decreasing file sizes.
+					Typical optimization for ResponsiveJS is
+						1) converting background images to base64 and include them in the css files
+						2) minifying CSS and JS
+						3) concatenate all of them in a single file
+					So in the end we have just a single file, that is usually called clientMap.js
+				</aside>
+			</section>
+			<section>
+				<h1>Production version</h1>
+				<h2>JS</h2>
+				<p>
+					<code class="highlight-code">clientMap</code> object
+					<pre><code>
+	sources: {
+		js: [{ src: "js/master.js", callback: "runMaster"}]
+	}
+					</code></pre>
+				</p>
+				<p>
+					Code in the same file, <code class="highlight-code">callback</code> matches the first argument
+					<pre><code>
+	RD.clientFnManager.set("runMaster", function () {
+		//do something
+	});
+					</code></pre>
+				</p>
+				<aside class="notes">
+					Read the slide.
+				</aside>
+			</section>
+			<section>
+				<h1>Production version</h1>
+				<h2>CSS</h2>
+				<p>
+					<code class="highlight-code">clientMap</code> object
+					<pre><code>
+	sources: {
+		css: [{ href: "css/master.css"}]
+	}
+					</code></pre>
+				</p>
+				<p>
+					Code in the same file, <code class="highlight-code">href</code> matches the first argument
+					<pre><code>
+	RD.clientCssManager.set('css/master.css', 'body{ background: red; }');
+					</code></pre>
+				</p>
+				<p>
+					The second argument is added to <code class="highlight-code">style</code> tag
+				</p>
+				<aside class="notes">
+					So if you add such JS code into your sources, the library won't load 'css/master.css'
+					it adds a style tag with string inside that you pass as the second argument.
+					You'll see how to do this automatically with GruntJS in the next training session.
+					Let's back to that checking that I mentioned couple slides before.
+					Checks that all href's in the clientmap match resources in the clientCssManger
+					same for JS callbacks and clientFnManager.
+				</aside>
+			</section>
+		</section>
+		<section data-transition="linear" data-transition-speed="slow">
+			<section>
+				<h1>Finishing</h1>
+				<div class="start-finishing"></div>
+				<aside class="notes">
+					In the end, it adds viewport from the clientmap,
+					attaches handler to resize event, triggers ready event,
+					and removes the style tag that hides body.
+				</aside>
+			</section>
+			<section>
+				<h1>Resize Handler</h1>
+				<p>memories the current screen width</p>
+				<p>triggers <code class="highlight-code">resize</code> event</p>
+				<p>triggers <code class="highlight-code">boundChange</code> event</p>
+				<aside class="notes">
+					Read the slide.
+				</aside>
+			</section>
+			<section>
+				<h1>Raise Ready</h1>
+				<p>triggers <code class="highlight-code">ready</code> event</p>
+				<p>adds CSS sources to the page, in the production version</p>
+				<p>
+					executes JS callbacks
+					<ul>
+						<li>if a callback throws an exception, the next callback won't be executed</li>
+					</ul>
+				</p>
+				<aside class="notes">
+					This ready is not the DOM ready event, it's a library event.
+					Read the slide.
+				</aside>
+			</section>
+		</section>
+		<section>
+			<h1>Callbacks</h1>
+			<p>a callback is executed one time</p>
+			<p>setTimeout's, setInterval's, event handlers live until the next page loading</p>
+			<aside class="notes">
+				Read the slide.
+				Whatever you write in callbacks will work from there.
+			</aside>
+		</section>
+		<section id="controls">
+			<section>
+				<h1>Controls</h1>
+				<ul>
+					<li><a href="#/control-footerLinks">footerLinks</a></li>
+					<li><a href="#/control-fullSiteLink">fullSiteLink</a></li>
+					<li><a href="#/control-menuBlock">menuBlock</a></li>
+					<li><a href="#/control-menuCollapsible">menuCollapsible</a></li>
+					<li><a href="#/control-pinchZoom">pinchZoom</a></li>
+					<li><a href="#/control-sidebar">sidebar</a></li>
+					<li><a href="#/control-simplePopup">simplePopup</a></li>
+					<li><a href="#/control-slider">slider</a></li>
+				</ul>
+				<aside class="notes">
+					The library provides a set of controls. You can use them to build UI/UX very quickly.
+					Almost all of them has good tutorials with examples.
+					Let's see how they looks
+				</aside>
+			</section>
+			<section id="control-footerLinks">
+				<h1>footerLinks</h1>
+				<div class="control-container">
+					<div class="left-side">
+						<p>
+							creates a collapsible menu of key links you would typically find at the bottom of a page
+						</p>
+						<ul>
+							<li><a href="http://responsivejs.5thfinger.com/footerlinks/" target="_blank">Tutorial</a></li>
+							<li><a href="http://studio.5thfinger.com/#/edit/3a43b1dc-a6e1-4f65-a745-f7f163a4652a" target="_blank">Demo</a></li>
+							<li><a href="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/RD.controls.html#footerLinks" target="_blank">Docs</a></li>
+						</ul>
+					</div>
+					<div class="right-side">
+						<div class="buttons">
+							<button class="btn" data-device="mobile">Mobile <span class="icon-mobile"></span></button>
+							<button class="btn" data-device="tablet">Tablet <span class="icon-tablet"></span></button>
+							<button class="btn" data-device="desktop">Desktop <span class="icon-desktop"></span></button>
+						</div>
+						<div class="device mobile">
+							<div class="iframe-wrapper">
+								<iframe width="320" height="480" src="http://studio.5thfinger.com/Preview?projectId=3a43b1dc-a6e1-4f65-a745-f7f163a4652a&url=http%3A%2F%2Fresponsive-production.s3.amazonaws.com%2Ftutorials%2Fv1.3.0%2Ffooter-links%2Findex.html">
+								</iframe>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="control-fullSiteLink">
+				<h1>fullSiteLink</h1>
+				<div class="control-container">
+					<div class="left-side">
+						<p>
+							creates a button that allows switch off/on responsive
+						</p>
+						<ul>
+							<li><a href="http://responsive-production.s3.amazonaws.com/v1.3/demo/full-site-link/index.html" target="_blank">Demo</a></li>
+							<li><a href="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/RD.controls.html#fullSiteLink" target="_blank">Docs</a></li>
+						</ul>
+					</div>
+					<div class="right-side">
+						<div class="buttons">
+							<button class="btn" data-device="mobile">Mobile <span class="icon-mobile"></span></button>
+							<button class="btn" data-device="tablet">Tablet <span class="icon-tablet"></span></button>
+							<button class="btn" data-device="desktop">Desktop <span class="icon-desktop"></span></button>
+						</div>
+						<div class="device mobile">
+							<div class="iframe-wrapper">
+								<iframe width="320" height="480" src="http://responsive-production.s3.amazonaws.com/v1.3/demo/full-site-link/index.html">
+								</iframe>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="control-menuBlock">
+				<h1>menuBlock</h1>
+				<div class="control-container">
+					<div class="left-side">
+						<p>
+							is a simple way to show a website menu on a mobile device
+						</p>
+						<ul>
+							<li><a href="http://responsivejs.5thfinger.com/menu-block/" target="_blank">Tutorial</a></li>
+							<li><a href="http://studio.5thfinger.com/#/edit/bc5eac0b-e2bf-46b4-b8d3-81ad68a6e0f1" target="_blank">Demo</a></li>
+							<li><a href="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/RD.controls.html#menuBlock" target="_blank">Docs</a></li>
+						</ul>
+					</div>
+					<div class="right-side">
+						<div class="buttons">
+							<button class="btn" data-device="mobile">Mobile <span class="icon-mobile"></span></button>
+							<button class="btn" data-device="tablet">Tablet <span class="icon-tablet"></span></button>
+							<button class="btn" data-device="desktop">Desktop <span class="icon-desktop"></span></button>
+						</div>
+						<div class="device mobile">
+							<div class="iframe-wrapper">
+								<iframe width="320" height="480" src="http://studio.5thfinger.com/Preview?projectId=bc5eac0b-e2bf-46b4-b8d3-81ad68a6e0f1&url=http%3A%2F%2Fresponsive-production.s3.amazonaws.com%2Ftutorials%2Fv1.3.0%2Fmenu-block%2Findex.html">
+								</iframe>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="control-menuCollapsible">
+				<h1>menuCollapsible</h1>
+				<div class="control-container">
+					<div class="left-side">
+						<p>
+							is a simple and structured way to display information on a mobile device
+						</p>
+						<ul>
+							<li><a href="http://responsivejs.5thfinger.com/menucollapsible/" target="_blank">Tutorial</a></li>
+							<li><a href="http://studio.5thfinger.com/#/edit/73fba29e-0c28-4c11-a9a1-2580b642e44f" target="_blank">Demo</a></li>
+							<li><a href="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/RD.controls.html#menuCollapsible" target="_blank">Docs</a></li>
+						</ul>
+					</div>
+					<div class="right-side">
+						<div class="buttons">
+							<button class="btn" data-device="mobile">Mobile <span class="icon-mobile"></span></button>
+							<button class="btn" data-device="tablet">Tablet <span class="icon-tablet"></span></button>
+							<button class="btn" data-device="desktop">Desktop <span class="icon-desktop"></span></button>
+						</div>
+						<div class="device mobile">
+							<div class="iframe-wrapper">
+								<iframe width="320" height="480" src="http://studio.5thfinger.com/Preview?projectId=73fba29e-0c28-4c11-a9a1-2580b642e44f&url=http%3A%2F%2Fresponsive-production.s3.amazonaws.com%2Ftutorials%2Fv1.3.0%2Fmenu-collapsible%2Findex.html">
+								</iframe>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="control-pinchZoom">
+				<h1>pinchZoom</h1>
+				<div class="control-container">
+					<div class="left-side">
+						<p>
+							allows you to apply zoom to elements
+						</p>
+						<ul>
+							<li><a href="http://responsive-production.s3.amazonaws.com/v1.3/demo/pinch-zoom/index.html" target="_blank">Demo</a></li>
+							<li><a href="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/RD.controls.html#pinchZoom" target="_blank">Docs</a></li>
+						</ul>
+					</div>
+					<div class="right-side">
+						<div class="buttons">
+							<button class="btn" data-device="mobile">Mobile <span class="icon-mobile"></span></button>
+							<button class="btn" data-device="tablet">Tablet <span class="icon-tablet"></span></button>
+							<button class="btn" data-device="desktop">Desktop <span class="icon-desktop"></span></button>
+						</div>
+						<div class="device mobile">
+							<div class="iframe-wrapper">
+								<iframe width="320" height="480" src="http://responsive-production.s3.amazonaws.com/v1.3/demo/pinch-zoom/index.html">
+								</iframe>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="control-sidebar">
+				<h1>sidebar</h1>
+				<div class="control-container">
+					<div class="left-side">
+						<p>
+							creates a panel that hides behind the left side of a page
+						</p>
+						<ul>
+							<li><a href="http://responsivejs.5thfinger.com/learn-how-to-use-our-sidebar/" target="_blank">Tutorial</a></li>
+							<li><a href="http://studio.5thfinger.com/#/edit/cb777370-0ef7-4d8a-9509-5246dc21dd31" target="_blank">Demo</a></li>
+							<li><a href="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/RD.controls.html#sidebar" target="_blank">Docs</a></li>
+						</ul>
+					</div>
+					<div class="right-side">
+						<div class="buttons">
+							<button class="btn" data-device="mobile">Mobile <span class="icon-mobile"></span></button>
+							<button class="btn" data-device="tablet">Tablet <span class="icon-tablet"></span></button>
+							<button class="btn" data-device="desktop">Desktop <span class="icon-desktop"></span></button>
+						</div>
+						<div class="device mobile">
+							<div class="iframe-wrapper">
+								<iframe width="320" height="480" src="http://studio.5thfinger.com/Preview?projectId=cb777370-0ef7-4d8a-9509-5246dc21dd31&url=http%3A%2F%2Fresponsive-production.s3.amazonaws.com%2Ftutorials%2Fv1.3.0%2Fsidebar%2Findex.html">
+								</iframe>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="control-simplePopup">
+				<h1>simplePopup</h1>
+				<div class="control-container">
+					<div class="left-side">
+						<p>
+							is an overlay adapted for a mobile device, a use can scroll the content inside the popup
+						</p>
+						<ul>
+							<li><a href="http://responsivejs.5thfinger.com/simple-popup/" target="_blank">Tutorial</a></li>
+							<li><a href="http://studio.5thfinger.com/#/edit/81bad846-6fb3-47cb-b12e-075de1aaba5d" target="_blank">Demo</a></li>
+							<li><a href="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/RD.controls.html#simplePopup" target="_blank">Docs</a></li>
+						</ul>
+					</div>
+					<div class="right-side">
+						<div class="buttons">
+							<button class="btn" data-device="mobile">Mobile <span class="icon-mobile"></span></button>
+							<button class="btn" data-device="tablet">Tablet <span class="icon-tablet"></span></button>
+							<button class="btn" data-device="desktop">Desktop <span class="icon-desktop"></span></button>
+						</div>
+						<div class="device mobile">
+							<div class="iframe-wrapper">
+								<iframe width="320" height="480" src="http://studio.5thfinger.com/Preview?projectId=81bad846-6fb3-47cb-b12e-075de1aaba5d&url=http%3A%2F%2Fresponsive-production.s3.amazonaws.com%2Ftutorials%2Fv1.3.0%2Fsimple-popup%2Findex.html">
+								</iframe>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="control-slider">
+				<h1>slider</h1>
+				<div class="control-container">
+					<div class="left-side">
+						<p>
+							is a touch-enabled image gallery that allows you to scroll back and forth through different images
+						</p>
+						<ul>
+							<li><a href="http://responsivejs.5thfinger.com/slider/" target="_blank">Tutorial</a></li>
+							<li><a href="http://studio.5thfinger.com/#/edit/2312a8e1-7f7c-46bf-ad39-27625e1a1d21" target="_blank">Demo</a></li>
+							<li><a href="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/RD.controls.html#slider" target="_blank">Docs</a></li>
+						</ul>
+					</div>
+					<div class="right-side">
+						<div class="buttons">
+							<button class="btn" data-device="mobile">Mobile <span class="icon-mobile"></span></button>
+							<button class="btn" data-device="tablet">Tablet <span class="icon-tablet"></span></button>
+							<button class="btn" data-device="desktop">Desktop <span class="icon-desktop"></span></button>
+						</div>
+						<div class="device mobile">
+							<div class="iframe-wrapper">
+								<iframe width="320" height="480" src="http://studio.5thfinger.com/Preview?projectId=2312a8e1-7f7c-46bf-ad39-27625e1a1d21&url=http%3A%2F%2Fresponsive-production.s3.amazonaws.com%2Ftutorials%2Fv1.3.0%2Fslider%2Findex.html">
+								</iframe>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</section>
+		<section>
+			<section>
+				<h1>Documentation</h1>
+				<p>The library is fully documented using <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a></p>
+				<p>Docs are <a href="http://responsivejs.5thfinger.com/docs/">here</a> or <a href="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/index.html">here</a></p>
+				<aside class="notes">
+					Documentation are available by these links.
+				</aside>
+			</section>
+			<section class="docs-overview">
+				<h1>Documentation</h1>
+				<div class="left-side">
+					<p>describes public APIs</p>
+					<p>has examples</p>
+					<ul>
+						<li><a data-docurl="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/RD.controls.html">controls</a></li>
+						<li><a data-docurl="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/responsify.html">responsify</a></li>
+						<li><a data-docurl="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/responsify.clientMap.html">clientMap</a></li>
+						<li><a data-docurl="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/RD.AjaxWrapper.html">AjaxWrapper</a></li>
+						<li><a data-docurl="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/RD.BoundManager.html">BoundManager</a></li>
+						<li><a data-docurl="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/RD.UrlManager.html">UrlManager</a></li>
+						<li><a data-docurl="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/RD.EventManager.html">EventManager</a></li>
+					</ul>
+				</div>
+				<div class="right-side">
+					<iframe id="docs-iframe" width="800" height="500" src="http://responsive-production.s3.amazonaws.com/docs/v1.3.0/index.html">
+					</iframe>
+				</div>
+				<aside class="notes">
+					Read the slide. Show docs by clicking the links.
+				</aside>
+			</section>
+		</section>
+	</div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+	// Full list of configuration options available here:
+	// https://github.com/hakimel/reveal.js#configuration
+	Reveal.initialize({
+		controls: true,
+		progress: true,
+		history: true,
+		center: true,
+
+		theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+		transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+		// Parallax scrolling
+		// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+		// parallaxBackgroundSize: '2100px 900px',
+
+		// Optional libraries used to extend on reveal.js
+		dependencies: [
+			{ src: 'lib/js/classList.js', condition: function() {
+				return !document.body.classList;
+			} },
+			{ src: 'plugin/markdown/marked.js', condition: function() {
+				return !!document.querySelector('[data-markdown]');
+			} },
+			{ src: 'plugin/markdown/markdown.js', condition: function() {
+				return !!document.querySelector('[data-markdown]');
+			} },
+			{ src: 'plugin/highlight/highlight.js', async: true, callback: function() {
+				hljs.configure({
+					tabReplace: '  ',
+					languages:['js','html', 'css']
+				});
+				hljs.initHighlightingOnLoad();
+			} },
+			{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() {
+				return !!document.body.classList;
+			} },
+			{ src: 'plugin/notes/notes.js', async: true, condition: function() {
+				return !!document.body.classList;
+			} },
+			{ src: 'js/custom.js', async: true}
+		]
+	});
+
+</script>
+
+</body>
+</html>

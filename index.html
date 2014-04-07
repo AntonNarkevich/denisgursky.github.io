@@ -98,13 +98,13 @@
 		<section>
 			<h2>Kindle problem</h2>
 
-			<img class="full-width-image" src="img/session2/kindleProblem.png"/>
+			<img class="full-width-image no-border-and-background" src="img/session2/kindleProblem.png"/>
 		</section>
 
 		<section>
 			<h2>What can it be</h2>
 			<div>
-				<img class="full-width-image" src="img/session2/collapsible.png" alt="Collapsing problems example"/>
+				<img class="full-width-image no-border-and-background" src="img/session2/collapsible.png" alt="Collapsing problems example"/>
 			</div>
 
 		</section>
@@ -112,12 +112,11 @@
 		<section>
 			<h2>Let us implement it</h2>
 			<div class="left-part">
-				<img class="full-width-image" src="img/session2/changeBoundDemo.png" alt="Change bound demo"/>
+				<img class="full-width-image " src="img/session2/changeBoundDemo.png" alt="Change bound demo"/>
 			</div>
 
 			<div class="right-part">
-				<pre>
-					<code>
+				<pre><code>
 RD.eventManager.on('boundChange', function(obj) {
 	var allBounds = obj.bounds;
 
@@ -128,8 +127,7 @@ RD.eventManager.on('boundChange', function(obj) {
 		console.log('Banner has been expanded');
 	}
 });
-					</code>
-				</pre>
+					</code></pre>
 			</div>
 		</section>
 
@@ -146,8 +144,7 @@ RD.eventManager.on('boundChange', function(obj) {
 			<section>
 				<h2>The source code</h2>
 
-				<pre>
-					<code>
+				<pre><code>
 var bounds = RD.boundManager.getBounds(),
 tabletSuffix = '_tablet',
 phoneSuffix = '_mobile';
@@ -189,8 +186,7 @@ RD.eventManager.on('boundChange', function (obj) {
 	console.log('Bound change fired');
 	updateLinks(obj.curBound);
 });
-					</code>
-				</pre>
+					</code></pre>
 
 			</section>
 
@@ -265,23 +261,19 @@ RD.eventManager.on('boundChange', function (obj) {
 
 			<ol class="full-width-ol">
 				<li><p>Register all needed callbacks</p>
-					<pre>
-						<code>
+					<pre><code>
 RD.ajaxWrapper.registerCallBack(/index/, function () {
 	alert("Congratulations!");
 	},
 	function () {alert("Failure!")
 });
-						</code>
-					</pre>
+						</code></pre>
 
 				</li>
 				<li><p>Call startListening</p>
-					<pre>
-						<code>
+					<pre><code>
 RD.ajaxWrapper.startListening();
-						</code>
-					</pre>
+						</code></pre>
 				</li>
 			</ol>
 		</section>
@@ -297,16 +289,14 @@ RD.ajaxWrapper.startListening();
 				</li>
 			</ol>
 
-			<pre>
-				<code>
+			<pre><code>
 RD.ajaxWrapper.registerCallBack(/galeryData/, function () {
 	setTimeout(function() {
 		console.log('AJAX has been wrapped.');
 		moveImagesInsideHyperlinks();
 	}, 0);
 });
-				</code>
-			</pre>
+				</code></pre>
 
 			<aside class="notes">Because the scheduler will put it into the end of callback queue.</aside>
 		</section>
@@ -324,8 +314,7 @@ RD.ajaxWrapper.registerCallBack(/galeryData/, function () {
 
 			<p>It only fires after a few specific AJAX requests</p>
 
-			<pre>
-				<code>
+			<pre><code>
 var callbacksGroup = [];
 
 for(var i = 0; i < 6; i++) {
@@ -336,8 +325,7 @@ for(var i = 0; i < 6; i++) {
 			}));
 	})(i)
 }
-				</code>
-			</pre>
+				</code></pre>
 		</section>
 
 		<section>
@@ -363,22 +351,20 @@ for(var i = 0; i < 6; i++) {
 
 			<p>Low level approach. E.g. If you want to use other AJAX states.</p>
 
-			<pre>
-				<code>
+			<pre><code>
 RD.eventManager.on("ajaxRequest", function (obj) {
 	if(obj.request.readyState == RD.ajaxWrapper.readyStates.complete) {
 		alert("Ajax Completed")
 	}
 });
-				</code>
-			</pre>
+				</code></pre>
 		</section>
 
 		<section>
 			<h2>SPA Problems</h2>
 
 			<div>
-				<img class="full-width-image" src="img/session2/SpaProblem.png" alt="Spa problem"/>
+				<img class="full-width-image no-border-and-background" src="img/session2/SpaProblem.png" alt="Spa problem"/>
 			</div>
 		</section>
 
@@ -388,16 +374,14 @@ RD.eventManager.on("ajaxRequest", function (obj) {
 			<p>For example, triggering some <a href="http://www.sitepoint.com/jquery-custom-events/">custom jQuery
 				event</a> when the page state changes solves the problem easily.</p>
 
-			<pre>
-				<code>
+			<pre><code>
 $.event.trigger({
 	type: "stateChanged",
 	message: "Hello World!",
 	time: new Date() });
 
 $(document).on(" stateChanged ", stateChangedHandler);
-				</code>
-			</pre>
+				</code></pre>
 
 			<aside class="notes">Backend changes are always a good approach.</aside>
 		</section>
@@ -407,7 +391,7 @@ $(document).on(" stateChanged ", stateChangedHandler);
 			<h2>Client side approach</h2>
 
 			<div>
-				<img class="full-width-image" src="img/session2/clientSideApproach.png" alt="Client side approach"/>
+				<img class="full-width-image no-border-and-background" src="img/session2/clientSideApproach.png" alt="Client side approach"/>
 			</div>
 
 			<p>*Consider performance here</p>
@@ -463,8 +447,7 @@ $(document).on(" stateChanged ", stateChangedHandler);
 		<section>
 			<h2>Useful code snippet</h2>
 
-			<pre>
-				<code>
+			<pre><code>
 $('*:visible').each(function(){
 	var $this = $(this);
 
@@ -473,8 +456,7 @@ $('*:visible').each(function(){
 		console.log($this[0]);
 	}
 });
-				</code>
-			</pre>
+				</code></pre>
 		</section>
 
 		<section>
@@ -482,11 +464,9 @@ $('*:visible').each(function(){
 
 			<p>Do not use selectors like:</p>
 
-			<pre>
-				<code>
+			<pre><code>
 div > div.rd-body-content > div:nth-child(3) > div:nth-child(3)
-				</code>
-			</pre>
+				</code></pre>
 
 			<p>It will make your design very unstable. Also it works slowly.</p>
 
@@ -552,8 +532,7 @@ div > div.rd-body-content > div:nth-child(3) > div:nth-child(3)
 
 			<p>It makes sense to apply such scripts for Android only. Or even for Android Specific version.</p>
 
-			<pre>
-				<code>
+			<pre><code>
 (function setReflowOnResize() {
 	var $orderSummary = jQ('#resp-cartosm-ordersummary .resp-cupon-div');
 
@@ -564,8 +543,7 @@ div > div.rd-body-content > div:nth-child(3) > div:nth-child(3)
 		}, 1);
 	});
 })();
-				</code>
-			</pre>
+				</code></pre>
 		</section>
 
 		<section>
@@ -575,11 +553,9 @@ div > div.rd-body-content > div:nth-child(3) > div:nth-child(3)
 
 			<p>You can use this function and pass in the element that needs reflow.</p>
 
-			<pre>
-				<code>
+			<pre><code>
 function reflow(elt){ console.log(elt.offsetHeight); }
-				</code>
-			</pre>
+				</code></pre>
 		</section>
 
 		<section>

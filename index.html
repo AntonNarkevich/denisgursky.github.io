@@ -325,6 +325,10 @@ for(var i = 0; i < 6; i++) {
 			}));
 	})(i)
 }
+
+RD.ajaxWrapper.waitForGroup(callbacksGroup, function () {
+	alert("Congratulations! All requests were completed.");
+});
 				</code></pre>
 		</section>
 
@@ -480,7 +484,7 @@ div > div.rd-body-content > div:nth-child(3) > div:nth-child(3)
 
 			<p>If you have access to the back end code you can add as many classes, wrappers as you want.</p>
 
-			<span class="best-practise">BEST PRACTISE</span>
+			<span class="best-practice">BEST PRACTISE</span>
 		</section>
 
 		<section>
